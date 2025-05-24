@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 
 // Individual product card
 const Product = ({ product }) => {
-  const { product_title, product_image, price, product_id } = product;
+  const { product_title, price, product_id } = product;
 
   return (
     // Remove the outer fixed-width border wrapper

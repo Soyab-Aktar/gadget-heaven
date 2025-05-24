@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useLoaderData, NavLink } from "react-router-dom";
+import { useParams, useLoaderData } from "react-router-dom";
 import { Star, ShoppingCart, Heart } from "lucide-react";
+import { useCart } from "../context/CartContext";
 
 const ProductDetails = () => {
   const [cartDisabled, setCartDisabled] = useState(false);
   const [wishlistDisabled, setWishlistDisabled] = useState(false);
+  const { addToCart, addToWishlist } = useCart(); // Moved up before any early returns
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -17,10 +20,19 @@ const ProductDetails = () => {
     return <p className="text-center mt-20 text-red-500">Product not found.</p>;
   }
 
+  const handleAddToCart = () => {
+    addToCart(selectedProduct);
+    setCartDisabled(true);
+  };
+  const handleAddToWishlist = () => {
+    addToWishlist(selectedProduct);
+    setWishlistDisabled(true);
+  };
+
   return (
     <>
       {/* Header Section */}
-      <div className="bg-purple-600 text-white text-center pb-28">
+      <div className="bg-purple-600 text-white text-center py-28">
         <h1 className="text-3xl font-bold mb-2">Product Details</h1>
         <p className="text-sm max-w-2xl mx-auto">
           Explore the latest gadgets that will take your experience to the next
@@ -82,14 +94,14 @@ const ProductDetails = () => {
           {/* Buttons */}
           <div className="flex gap-4 mt-6">
             <button
+              onClick={handleAddToCart}
               disabled={cartDisabled}
-              onClick={() => setCartDisabled(true)}
               className={`px-6 py-2 rounded-full flex items-center gap-2 transition 
-            ${
-              cartDisabled
-                ? "bg-purple-300 cursor-not-allowed text-white"
-                : "bg-purple-600 text-white hover:bg-purple-700"
-            }`}
+                ${
+                  cartDisabled
+                    ? "bg-purple-300 cursor-not-allowed text-white"
+                    : "bg-purple-600 text-white hover:bg-purple-700"
+                }`}
             >
               <ShoppingCart size={18} />
               {cartDisabled ? "Added" : "Add To Cart"}
@@ -97,13 +109,13 @@ const ProductDetails = () => {
 
             <button
               disabled={wishlistDisabled}
-              onClick={() => setWishlistDisabled(true)}
+              onClick={handleAddToWishlist}
               className={`px-4 py-2 rounded-full transition 
-            ${
-              wishlistDisabled
-                ? "bg-purple-300 cursor-not-allowed"
-                : "bg-purple-100 hover:bg-purple-200"
-            }`}
+                ${
+                  wishlistDisabled
+                    ? "bg-purple-300 cursor-not-allowed"
+                    : "bg-purple-100 hover:bg-purple-200"
+                }`}
             >
               <Heart size={18} />
             </button>
