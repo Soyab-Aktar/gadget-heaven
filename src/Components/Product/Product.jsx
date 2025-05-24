@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 
 // Individual product card
 const Product = ({ product }) => {
-  const { product_title, price, product_id } = product;
+  const { product_title, price, product_image, product_id } = product;
 
   return (
     // Remove the outer fixed-width border wrapper
@@ -11,9 +11,9 @@ const Product = ({ product }) => {
       {/* Image container */}
       <figure className="px-6 pt-6">
         <img
-          src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp" // Use dynamic product image
+          src={product_image} // Use dynamic product image
           alt={product_title}
-          className="rounded-md w-full h-48 object-cover"
+          className="rounded-md w-full h-48 object-contain"
         />
       </figure>
 

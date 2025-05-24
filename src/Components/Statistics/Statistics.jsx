@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
 import {
   BarChart,
@@ -10,6 +11,9 @@ import {
 } from "recharts";
 
 const Statistics = () => {
+  useEffect(() => {
+    document.title = "Gadget Heaven | Statistics";
+  }, []);
   const productData = useLoaderData();
 
   return (

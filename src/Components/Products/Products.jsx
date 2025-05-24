@@ -29,7 +29,7 @@ const Products = () => {
 
   return (
     <div className="mt-32 px-4 md:px-0 max-w-7xl mx-auto mb-16">
-      <h1 className="text-3xl font-bold text-center mb-8">
+      <h1 className="text-3xl font-bold text-center mb-8 bg-purple-600 rounded-md text-white py-5">
         Explore Cutting-Edge Gadgets
       </h1>
 

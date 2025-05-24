@@ -6,7 +6,7 @@ const Navbar = () => {
   const location = useLocation(); // ✅ Use the hook
 
   // ✅ Define routes that need white background
-  const whiteBgRoutes = ["/dashboard", "/stats"];
+  const whiteBgRoutes = ["/dashboard", "/stats", "/contact"];
   const isProductDetailsPage = location.pathname.startsWith("/products/");
 
   const isWhiteBg =
@@ -50,6 +50,18 @@ const Navbar = () => {
           Statistics
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          to="/contact"
+          className={({ isActive }) =>
+            isActive
+              ? "text-purple-600 bg-white px-4 py-2 rounded font-bold"
+              : "hover:text-purple-200 px-4 py-2"
+          }
+        >
+          Contact
+        </NavLink>
+      </li>
     </>
   );
 
@@ -85,7 +97,9 @@ const Navbar = () => {
               {links}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl font-bold">Gadget Heaven</a>
+          <NavLink to="/">
+            <a className="btn btn-ghost text-xl font-bold">Gadget Heaven</a>
+          </NavLink>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1 font-medium">{links}</ul>

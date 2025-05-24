@@ -2,8 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useParams, useLoaderData } from "react-router-dom";
 import { Star, ShoppingCart, Heart } from "lucide-react";
 import { useCart } from "../context/CartContext";
+import { toast } from "react-toastify";
 
 const ProductDetails = () => {
+  useEffect(() => {
+    document.title = "Gadget Heaven | ProductDetails";
+  }, []);
   const [cartDisabled, setCartDisabled] = useState(false);
   const [wishlistDisabled, setWishlistDisabled] = useState(false);
   const { addToCart, addToWishlist } = useCart(); // Moved up before any early returns
@@ -23,10 +27,12 @@ const ProductDetails = () => {
   const handleAddToCart = () => {
     addToCart(selectedProduct);
     setCartDisabled(true);
+    toast.success("Item added to cart!");
   };
   const handleAddToWishlist = () => {
     addToWishlist(selectedProduct);
     setWishlistDisabled(true);
+    toast.info("Added to wishlist!");
   };
 
   return (
@@ -44,7 +50,7 @@ const ProductDetails = () => {
       <div className="max-w-6xl mx-auto bg-white rounded-xl shadow-lg mt-[-70px] p-10 flex flex-col md:flex-row gap-10 z-10 relative">
         {/* Product Image Placeholder */}
         <div className="w-full md:w-1/2 flex justify-center items-center">
-          <div className="bg-gray-200 w-[300px] h-[300px] rounded-lg" />
+          <img src={selectedProduct.product_image} className="object-contain" />
         </div>
 
         {/* Product Info */}

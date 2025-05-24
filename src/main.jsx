@@ -9,6 +9,8 @@ import HomePage from "./Components/HomePage/HomePage.jsx";
 import Statistics from "./Components/Statistics/Statistics.jsx";
 import ProductDetails from "./Components/ProductDetails/ProductDetails.jsx";
 import { CartProvider } from "./Components/context/CartContext.jsx";
+import { ToastContainer } from "react-toastify";
+import Contact from "./Components/Contact/Contact.jsx";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +32,10 @@ const router = createBrowserRouter([
         loader: () => fetch("/product.json"),
       },
       {
+        path: "contact",
+        element: <Contact></Contact>,
+      },
+      {
         path: "products/:product",
         element: <ProductDetails />,
         loader: () => fetch("/product.json"),
@@ -42,6 +48,18 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <CartProvider>
       <RouterProvider router={router} />
+      <ToastContainer
+        position="top-right"
+        autoClose={2500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </CartProvider>
   </StrictMode>
 );

@@ -3,6 +3,10 @@ import { useCart } from "../context/CartContext";
 import { NavLink } from "react-router-dom";
 
 const Dashboard = () => {
+  useEffect(() => {
+    document.title = "Gadget Heaven | Dashboard";
+  }, []);
+
   const {
     cartItems,
     removeFromCart,
@@ -42,7 +46,7 @@ const Dashboard = () => {
       </p>
 
       {/* Tabs for Cart/Wishlist */}
-      <div className="flex items-center justify-center gap-6 mt-6">
+      <div className="flex items-center flex-col md:flex-row justify-center md:gap-6 gap-2 mt-6">
         <button
           className={`btn w-1/5 ${
             activeTab === "cart" ? "btn-primary" : "bg-white text-purple-700"
@@ -86,15 +90,21 @@ const Dashboard = () => {
 
               <div className="flex flex-col gap-4 text-left">
                 {sortedCart.map(
-                  ({ product_id, product_title, price, description }) => (
+                  ({
+                    product_id,
+                    product_title,
+                    price,
+                    description,
+                    product_image,
+                  }) => (
                     <div
                       key={product_id}
-                      className="border p-4 rounded-lg flex items-center justify-between"
+                      className="border-2 border-purple-600 p-4 rounded-lg flex flex-col md:flex-row items-center justify-between"
                     >
-                      <div className="flex items-center gap-4">
+                      <div className="flex flex-col md:flex-row items-center gap-4">
                         <img
-                          src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                          className="w-48 rounded-md"
+                          src={product_image}
+                          className="w-48 rounded-md object-contain"
                         />
                         <div>
                           <h3 className="font-semibold">{product_title}</h3>
@@ -136,29 +146,36 @@ const Dashboard = () => {
           ) : (
             <div className="flex flex-col gap-4 text-left">
               {wishlistItems.map(
-                ({ product_id, product_title, price, description }) => (
+                ({
+                  product_id,
+                  product_title,
+                  price,
+                  description,
+                  product_image,
+                }) => (
                   <div
                     key={product_id}
-                    className="border p-4 rounded-lg flex items-center justify-between"
+                    className="border-2 border-purple-600 p-4 rounded-lg flex flex-col md:flex-row items-center justify-between"
                   >
-                    <div className="flex items-center gap-4">
+                    <div className="flex flex-col md:flex-row items-center gap-4">
                       <img
-                        src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                        className="w-48 rounded-md"
+                        src={product_image}
+                        className="w-48 rounded-md object-contain"
                       />
                       <div>
                         <h3 className="font-semibold">{product_title}</h3>
                         <p>{description}</p>
                         <p>Price: ${price}</p>
                         <button
-                          onClick={() =>
+                          onClick={() => {
                             addToCart({
                               product_id,
                               product_title,
                               price,
                               description,
-                            })
-                          }
+                            });
+                            removeFromWishlist(product_id);
+                          }}
                           className="btn mt-2 bg-purple-600 text-white hover:bg-purple-700"
                         >
                           Add to Cart
